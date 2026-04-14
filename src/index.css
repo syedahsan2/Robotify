@@ -1,13 +1,267 @@
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #0A0A0A;
+  color: #FFFFFF;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Grid Pattern */
+.bg-grid {
+  background-image: linear-gradient(rgba(0, 174, 239, 0.08) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 174, 239, 0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Dots Pattern */
+.bg-dots {
+  background-image: radial-gradient(rgba(0, 174, 239, 0.12) 1.5px, transparent 1.5px);
+  background-size: 25px 25px;
+}
+
+/* Noise Texture */
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1A1A1A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00AEEF;
+  border-radius: 10px;
+}
+
+/* Selection Color */
+::selection {
+  background: #00AEEF;
+  color: #0A0A0A;
+}
+
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus Outline */
+*:focus {
+  outline: none;
+}
+
+/* Glow Animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.glow-animation {
+  animation: glow 2s ease-in-out infinite;
+}
+/* Electric Cursor Effects - FASTER */
+@keyframes electricPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 174, 239, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(0, 174, 239, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 174, 239, 0);
+  }
+}
+
+@keyframes electricZap {
+  0% {
+    stroke-dashoffset: 30;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+/* Ultra-fast cursor animations */
+@keyframes sparkFade {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+/* Lightning fast cursor animations */
+@keyframes sparkBurst {
+  0% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+
+/* Ultra-fast hover effects */
+button, a, .cursor-pointer {
+  transition: all 0.05s ease-out !important;
+}
+
+button:hover, a:hover {
+  transition: all 0.03s ease-out !important;
+  text-shadow: 0 0 8px rgba(0, 174, 239, 0.8);
+}
+
+button:active, a:active {
+  transform: scale(0.98);
+  transition: transform 0.02s ease-out;
+}
+
+/* Hide default cursor completely */
+body {
+  cursor: none !important;
+}
+
+/* Show on mobile only */
+@media (max-width: 768px) {
+  body {
+    cursor: auto !important;
+  }
+  
+  .fixed.pointer-events-none {
+    display: none !important;
+  }
+}
+
+/* Smooth scroll but cursor fast */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Electric glow for interactive elements */
+.glass-card:hover {
+  box-shadow: 0 0 15px rgba(0, 174, 239, 0.3);
+  transition: all 0.05s ease-out;
+}
+@keyframes lineFade {
+  0% {
+    opacity: 0.8;
+    stroke-dashoffset: 10;
+  }
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Ultra-fast hover effects */
+button, a, .cursor-pointer {
+  transition: all 0.08s ease-out !important;
+}
+
+button:hover, a:hover {
+  transition: all 0.05s ease-out !important;
+}
+
+/* Hide default cursor */
+body {
+  cursor: none !important;
+}
+
+/* Show on mobile */
+@media (max-width: 768px) {
+  body {
+    cursor: auto !important;
+  }
+}
+@keyframes fastPulse {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.05);
+  }
+}
+
+.electric-pulse {
+  animation: electricPulse 0.5s ease-out infinite;  /* Faster pulse */
+}
+
+.electric-zap {
+  animation: electricZap 0.3s ease-out;  /* Faster zap */
+}
+
+.fast-pulse {
+  animation: fastPulse 1s ease-in-out infinite;
+}
+
+/* Electric hover effect - FASTER */
+button, a, .cursor-pointer, .group {
+  position: relative;
+  transition: all 0.15s ease-out;  /* Faster transition */
+}
+
+button:hover, a:hover, .cursor-pointer:hover {
+  text-shadow: 0 0 5px rgba(0, 174, 239, 0.6);
+  transition: all 0.1s ease-out;
+}
+
+button:hover::before, a:hover::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #00AEEF, transparent, #00AEEF);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0.4;
+  animation: electricZap 0.25s ease-out;  /* Faster zap */
+}
+
+/* Hide default cursor - FASTER */
+body {
+  cursor: none;
+}
+
+/* Show default cursor on mobile */
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
+  }
+  
+  .custom-cursor, .electric-cursor {
+    display: none;
+  }
 }
