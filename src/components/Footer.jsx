@@ -41,9 +41,9 @@ export default function Footer() {
     contact: {
       title: "Contact Info",
       info: [
-        { icon: <MdPhone className="text-[#00AEEF]" />, text: "+92 300 1234567", href: "tel:+923001234567" },
+        { icon: <MdPhone className="text-[#00AEEF]" />, text: "+92 333 7085256", href: "tel:+923337085256" },
         { icon: <MdEmail className="text-[#00AEEF]" />, text: "info@robotify.pk", href: "mailto:info@robotify.pk" },
-        { icon: <MdLocationOn className="text-[#00AEEF]" />, text: "Lahore, Pakistan", href: "#" }
+        { icon: <MdLocationOn className="text-[#00AEEF]" />, text: "Karachi, Pakistan", href: "#" }
       ]
     }
   };

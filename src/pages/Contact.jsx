@@ -105,7 +105,7 @@ export default function Contact() {
     {
       icon: <FaMapMarkerAlt className="text-3xl text-[#00AEEF]" />,
       title: "Visit Us",
-      details: ["Office #123, Tech Plaza", "Lahore, Pakistan"]
+      details: ["Office #123, North Nazimabad", "Karachi, Pakistan"]
     },
     {
       icon: <FaPhone className="text-3xl text-[#00AEEF]" />,
@@ -278,7 +278,7 @@ export default function Contact() {
                 <div className="bg-gray-800 rounded-xl h-48 flex items-center justify-center relative overflow-hidden">
                   <div className="text-center z-10">
                     <FaMapMarkerAlt className="text-5xl text-[#00AEEF] mx-auto mb-2" />
-                    <p className="text-gray-400 text-sm">Lahore, Pakistan</p>
+                    <p className="text-gray-400 text-sm">Karachi, Pakistan</p>
                     <p className="text-[#00AEEF] text-xs mt-2">View on Google Maps →</p>
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-br from-[#00AEEF]/5 to-transparent" />
