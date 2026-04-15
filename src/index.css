@@ -231,23 +231,119 @@ button, a, .cursor-pointer, .group {
   transition: all 0.15s ease-out;  /* Faster transition */
 }
 
-button:hover, a:hover, .cursor-pointer:hover {
-  text-shadow: 0 0 5px rgba(0, 174, 239, 0.6);
-  transition: all 0.1s ease-out;
+/* ========== FIXED ELECTRIC HOVER EFFECT ========== */
+
+/* Base styles for interactive elements */
+button, 
+a, 
+.cursor-pointer,
+[class*="cursor-pointer"] {
+  position: relative;
+  display: inline-block;
+  transition: all 0.15s ease-out;
+  z-index: 1;
 }
 
-button:hover::before, a:hover::before {
+/* Hover text effect */
+button:hover, 
+a:hover, 
+.cursor-pointer:hover {
+  text-shadow: 0 0 8px rgba(0, 174, 239, 0.8);
+  transition: all 0.08s ease-out;
+}
+
+/* Electric zap effect on hover */
+button:hover::before, 
+a:hover::before,
+.cursor-pointer:hover::before {
   content: '';
   position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(45deg, #00AEEF, transparent, #00AEEF);
-  border-radius: 5px;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: linear-gradient(135deg, 
+    #00AEEF 0%, 
+    transparent 30%, 
+    transparent 70%, 
+    #00AEEF 100%);
+  border-radius: inherit;
   z-index: -1;
-  opacity: 0.4;
-  animation: electricZap 0.25s ease-out;  /* Faster zap */
+  opacity: 0;
+  pointer-events: none;
+  animation: electricZap 0.3s ease-out forwards;
+}
+
+/* Electric zap animation */
+@keyframes electricZap {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  20% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+/* For buttons with solid background */
+button.bg-\[#00AEEF\],
+button[class*="bg-\\[#00AEEF\\]"] {
+  position: relative;
+  overflow: hidden;
+}
+
+button.bg-\[#00AEEF\]:hover::before,
+button[class*="bg-\\[#00AEEF\\]"]:hover::before {
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.8) 0%, 
+    transparent 30%, 
+    transparent 70%, 
+    rgba(255,255,255,0.8) 100%);
+  opacity: 0;
+  animation: electricZap 0.25s ease-out forwards;
+}
+
+/* For border buttons */
+button.border-\[#00AEEF\],
+a.border-\[#00AEEF\] {
+  position: relative;
+}
+
+button.border-\[#00AEEF\]:hover::before,
+a.border-\[#00AEEF\]:hover::before {
+  background: linear-gradient(135deg, 
+    #00AEEF 0%, 
+    transparent 30%, 
+    transparent 70%, 
+    #00AEEF 100%);
+  opacity: 0;
+  animation: electricZap 0.3s ease-out forwards;
+}
+
+/* For cards and containers */
+.glass-card:hover,
+.group:hover .group-hover\:border-\[#00AEEF\] {
+  transition: all 0.15s ease-out;
+}
+
+/* Ensure proper rendering on all elements */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Fix for links without href */
+a:not([href]) {
+  cursor: default;
 }
 
 /* Hide default cursor - FASTER */
