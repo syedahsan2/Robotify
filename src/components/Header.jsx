@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaSolarPanel, FaRobot, FaIndustry, FaMicrochip, FaBolt, FaPlug, FaGamepad, FaMicrophone } from 'react-icons/fa';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isProjectsOpen, setIsProjectsOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -19,33 +21,32 @@ export default function Header() {
   // Close mobile menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
-    setIsDropdownOpen(false);
+    setIsServicesOpen(false);
+    setIsProjectsOpen(false);
   }, [location]);
 
-const navLinks = [
-  { name: 'Home', path: '/' },
-  { name: 'Services', path: '/services', hasDropdown: true },
-  { name: 'Work', path: '/work' },  // Changed from Portfolio to Work
-  { name: 'About', path: '/about' },
-  { name: 'Contact', path: '/contact' }
-];
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services', hasDropdown: true, dropdownType: 'services' },
+    { name: 'Projects', path: '/projects', hasDropdown: true, dropdownType: 'projects' },
+    { name: 'Work', path: '/work' },
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' }
+  ];
 
-  const dropdownItems = {
-    fyp: [
-      { name: 'Final Year Projects', icon: '🎓', path: '/services/fyp' },
-      { name: 'Semester Projects', icon: '📚', path: '/services/semester' }
+const dropdownItems = {
+    services: [
+      { name: 'Solar Inverter Repairing', icon: <FaSolarPanel className="text-[#00AEEF]" />, path: '/services/solar-inverter-repair' },
+      { name: 'Solar Cleaning Robot', icon: <FaRobot className="text-[#00AEEF]" />, path: '/services/solar-cleaning-robot' },
+      { name: 'Robotics Systems / Robotic Projects', icon: <FaIndustry className="text-[#00AEEF]" />, path: '/services/robotics-projects' },
+      { name: 'AI Models / AI Projects', icon: <FaMicrochip className="text-[#00AEEF]" />, path: '/services/ai-models' }
     ],
-    engineering: [
-      { name: 'Robotics Systems', icon: '🤖', path: '/services/robotics' },
-      { name: 'IoT Solutions (EMS)', icon: '🌐', path: '/services/iot' }
-    ],
-    energy: [
-      { name: 'Solar Systems', icon: '☀️', path: '/services/solar' },
-      { name: 'Smart Energy Monitoring', icon: '⚡', path: '/services/energy' }
-    ],
-    custom: [
-      { name: 'Automation', icon: '⚙️', path: '/services/automation' },
-      { name: 'Custom Projects', icon: '🔧', path: '/services/custom' }
+    projects: [
+      { name: 'Digital Logic Design', icon: <FaMicrochip className="text-[#00AEEF]" />, path: '/projects/digital-logic-design' },
+      { name: 'Basic Electronics', icon: <FaBolt className="text-[#00AEEF]" />, path: '/projects/basic-electronics' },
+      { name: 'Embedded System', icon: <FaPlug className="text-[#00AEEF]" />, path: '/projects/embedded-system' },
+      { name: 'Arduino Based', icon: <FaGamepad className="text-[#00AEEF]" />, path: '/projects/arduino-based' },
+      { name: 'RaspberryPi Based', icon: <FaMicrophone className="text-[#00AEEF]" />, path: '/projects/raspberrypi-based' }
     ]
   };
 
@@ -70,8 +71,13 @@ const navLinks = [
                 whileHover={{ scale: 1.02 }}
                 className="flex items-center gap-2"
               >
-                <img src="/Robotify.png" alt="Robotify Logo" className="w-35 h-20 object-cover rounded-lg" />
-                
+                <div className="w-8 h-8 bg-gradient-to-br from-[#00AEEF] to-blue-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">R</span>
+                </div>
+                <span className="text-xl font-bold tracking-tighter">
+                  <span className="text-white">ROBOTIFY</span>
+                  <span className="text-[#00AEEF]">.pk</span>
+                </span>
               </motion.div>
             </Link>
 
@@ -81,8 +87,14 @@ const navLinks = [
                 <div
                   key={link.name}
                   className="relative"
-                  onMouseEnter={() => link.hasDropdown && setIsDropdownOpen(true)}
-                  onMouseLeave={() => link.hasDropdown && setIsDropdownOpen(false)}
+                  onMouseEnter={() => {
+                    if (link.dropdownType === 'services') setIsServicesOpen(true);
+                    if (link.dropdownType === 'projects') setIsProjectsOpen(true);
+                  }}
+                  onMouseLeave={() => {
+                    setIsServicesOpen(false);
+                    setIsProjectsOpen(false);
+                  }}
                 >
                   <Link to={link.path}>
                     <motion.span
@@ -100,89 +112,68 @@ const navLinks = [
                     </motion.span>
                   </Link>
 
-                  {/* Dropdown Menu */}
-                  {link.hasDropdown && (
+                  {/* Services Dropdown */}
+                  {link.dropdownType === 'services' && (
                     <AnimatePresence>
-                      {isDropdownOpen && (
+                      {isServicesOpen && (
                         <motion.div
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 mt-2 w-[600px] bg-black/90 backdrop-blur-xl border border-[#2A2A2A] rounded-xl overflow-hidden z-50"
+                          className="absolute top-full left-0 mt-2 w-72 bg-black/90 backdrop-blur-xl border border-[#2A2A2A] rounded-xl overflow-hidden z-50"
                         >
-                          <div className="grid grid-cols-2 gap-0">
-                            {/* FYP & Academic */}
-                            <div className="p-4 border-r border-[#2A2A2A]">
-                              <h4 className="text-[#00AEEF] text-xs font-semibold tracking-wider mb-3">FYP & ACADEMIC</h4>
-                              {dropdownItems.fyp.map((item) => (
-                                <Link key={item.name} to={item.path}>
-                                  <motion.div
-                                    whileHover={{ x: 5 }}
-                                    className="flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-[#00AEEF]/10 transition-all duration-300"
-                                  >
-                                    <span className="text-[#00AEEF] text-lg">{item.icon}</span>
-                                    <span className="text-[#BFC3C7] text-sm hover:text-[#00AEEF] transition">
-                                      {item.name}
-                                    </span>
-                                  </motion.div>
-                                </Link>
-                              ))}
-                            </div>
+                          <div className="p-2">
+                            <h4 className="text-[#00AEEF] text-xs font-semibold tracking-wider px-3 py-2 border-b border-[#2A2A2A] mb-1">
+                              SERVICES
+                            </h4>
+                            {dropdownItems.services.map((item) => (
+                              <Link key={item.name} to={item.path}>
+                                <motion.div
+                                  whileHover={{ x: 5 }}
+                                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-[#00AEEF]/10 transition-all duration-300"
+                                >
+                                  <span className="text-[#00AEEF] text-xl">{item.icon}</span>
+                                  <span className="text-[#BFC3C7] text-sm hover:text-[#00AEEF] transition">
+                                    {item.name}
+                                  </span>
+                                </motion.div>
+                              </Link>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  )}
 
-                            {/* Engineering */}
-                            <div className="p-4 border-b border-[#2A2A2A]">
-                              <h4 className="text-[#00AEEF] text-xs font-semibold tracking-wider mb-3">ENGINEERING</h4>
-                              {dropdownItems.engineering.map((item) => (
-                                <Link key={item.name} to={item.path}>
-                                  <motion.div
-                                    whileHover={{ x: 5 }}
-                                    className="flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-[#00AEEF]/10 transition-all duration-300"
-                                  >
-                                    <span className="text-[#00AEEF] text-lg">{item.icon}</span>
-                                    <span className="text-[#BFC3C7] text-sm hover:text-[#00AEEF] transition">
-                                      {item.name}
-                                    </span>
-                                  </motion.div>
-                                </Link>
-                              ))}
-                            </div>
-
-                            {/* Energy */}
-                            <div className="p-4 border-r border-[#2A2A2A]">
-                              <h4 className="text-[#00AEEF] text-xs font-semibold tracking-wider mb-3">ENERGY</h4>
-                              {dropdownItems.energy.map((item) => (
-                                <Link key={item.name} to={item.path}>
-                                  <motion.div
-                                    whileHover={{ x: 5 }}
-                                    className="flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-[#00AEEF]/10 transition-all duration-300"
-                                  >
-                                    <span className="text-[#00AEEF] text-lg">{item.icon}</span>
-                                    <span className="text-[#BFC3C7] text-sm hover:text-[#00AEEF] transition">
-                                      {item.name}
-                                    </span>
-                                  </motion.div>
-                                </Link>
-                              ))}
-                            </div>
-
-                            {/* Custom */}
-                            <div className="p-4">
-                              <h4 className="text-[#00AEEF] text-xs font-semibold tracking-wider mb-3">CUSTOM</h4>
-                              {dropdownItems.custom.map((item) => (
-                                <Link key={item.name} to={item.path}>
-                                  <motion.div
-                                    whileHover={{ x: 5 }}
-                                    className="flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-[#00AEEF]/10 transition-all duration-300"
-                                  >
-                                    <span className="text-[#00AEEF] text-lg">{item.icon}</span>
-                                    <span className="text-[#BFC3C7] text-sm hover:text-[#00AEEF] transition">
-                                      {item.name}
-                                    </span>
-                                  </motion.div>
-                                </Link>
-                              ))}
-                            </div>
+                  {/* Projects Dropdown */}
+                  {link.dropdownType === 'projects' && (
+                    <AnimatePresence>
+                      {isProjectsOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute top-full left-0 mt-2 w-72 bg-black/90 backdrop-blur-xl border border-[#2A2A2A] rounded-xl overflow-hidden z-50"
+                        >
+                          <div className="p-2">
+                            <h4 className="text-[#00AEEF] text-xs font-semibold tracking-wider px-3 py-2 border-b border-[#2A2A2A] mb-1">
+                              PROJECTS
+                            </h4>
+                            {dropdownItems.projects.map((item) => (
+                              <Link key={item.name} to={item.path}>
+                                <motion.div
+                                  whileHover={{ x: 5 }}
+                                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-[#00AEEF]/10 transition-all duration-300"
+                                >
+                                  <span className="text-[#00AEEF] text-xl">{item.icon}</span>
+                                  <span className="text-[#BFC3C7] text-sm hover:text-[#00AEEF] transition">
+                                    {item.name}
+                                  </span>
+                                </motion.div>
+                              </Link>
+                            ))}
                           </div>
                         </motion.div>
                       )}
@@ -233,20 +224,21 @@ const navLinks = [
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl md:hidden overflow-y-auto"
           >
-            <div className="flex flex-col items-center justify-center h-full gap-6">
+            <div className="flex flex-col p-6 pt-24 gap-4">
               {navLinks.map((link, idx) => (
                 <motion.div
                   key={link.path}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1 }}
+                  className="border-b border-gray-800 pb-3"
                 >
                   <Link
                     to={link.path}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`text-xl font-light tracking-tighter transition-colors ${
+                    className={`text-lg font-light tracking-tighter transition-colors ${
                       location.pathname === link.path
                         ? 'text-[#00AEEF]'
                         : 'text-gray-400'
@@ -254,15 +246,44 @@ const navLinks = [
                   >
                     {link.name}
                   </Link>
+                  
+                  {/* Mobile Submenu for Services */}
+                  {link.dropdownType === 'services' && (
+                    <div className="mt-2 ml-4 space-y-2">
+                      {dropdownItems.services.map((item) => (
+                        <Link key={item.name} to={item.path} onClick={() => setIsMobileMenuOpen(false)}>
+                          <div className="flex items-center gap-2 py-1 text-sm text-gray-500 hover:text-[#00AEEF] transition">
+                            <span>{item.icon}</span>
+                            <span>{item.name}</span>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                  
+                  {/* Mobile Submenu for Projects */}
+                  {link.dropdownType === 'projects' && (
+                    <div className="mt-2 ml-4 space-y-2">
+                      {dropdownItems.projects.map((item) => (
+                        <Link key={item.name} to={item.path} onClick={() => setIsMobileMenuOpen(false)}>
+                          <div className="flex items-center gap-2 py-1 text-sm text-gray-500 hover:text-[#00AEEF] transition">
+                            <span>{item.icon}</span>
+                            <span>{item.name}</span>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </motion.div>
               ))}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
+                className="mt-4"
               >
                 <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                  <button className="px-8 py-3 bg-[#00AEEF] text-black rounded-full text-sm font-semibold">
+                  <button className="w-full py-3 bg-[#00AEEF] text-black rounded-lg font-semibold">
                     Get Quote →
                   </button>
                 </Link>

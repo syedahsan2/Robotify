@@ -130,18 +130,18 @@ export default function Home() {
   return (
     <div className="bg-black min-h-screen">
       
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden">
+      {/* Hero Section - Fixed for mobile */}
+      <section className="relative min-h-screen flex items-center justify-center px-4 pt-28 md:pt-20 overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
           <div className="absolute inset-0 bg-[#0A0A0A]" />
           <div className="absolute inset-0" style={electricGrid} />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+          {/* Removed gradient overlay */}
         </div>
         
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#00AEEF]/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#00AEEF]/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-blue-600/5 rounded-full blur-3xl animate-pulse delay-1000" />
         
-        <div className="text-center max-w-4xl mx-auto relative z-10">
+        <div className="text-center max-w-4xl mx-auto relative z-10 px-4">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -151,29 +151,29 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
-              className="text-xs tracking-[0.3em] text-[#00AEEF] mb-6 flex items-center justify-center gap-2"
+              className="text-[10px] md:text-xs tracking-[0.3em] text-[#00AEEF] mb-4 md:mb-6 flex items-center justify-center gap-2 flex-wrap"
             >
-              <FaBolt className="text-sm" /> ENGINEERING SOLUTIONS <FaBolt className="text-sm" />
+              <FaBolt className="text-xs md:text-sm" /> ENGINEERING SOLUTIONS <FaBolt className="text-xs md:text-sm" />
             </motion.p>
             
-              <motion.h1 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
-              >
-                <span className="text-white">Engineering</span>
-                <br />
-                <span className="text-[#00AEEF]">
-                  Solutions for Real World
-                </span>
-              </motion.h1>
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold mb-4 md:mb-6"
+            >
+              <span className="text-white">Engineering</span>
+              <br />
+              <span className="text-[#00AEEF]">
+                Solutions for Real World
+              </span>
+            </motion.h1>
             
             <motion.p 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-gray-400 text-lg max-w-2xl mx-auto mb-8 leading-relaxed"
+              className="text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-6 md:mb-8 leading-relaxed px-2"
             >
               Professional engineering solutions for robotics, IoT, solar systems, 
               and industrial automation. From FYP to industry projects.
@@ -183,15 +183,15 @@ export default function Home() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="flex gap-4 justify-center flex-wrap"
+              className="flex gap-3 md:gap-4 justify-center flex-wrap"
             >
               <Link to="/contact">
-                <button className="px-8 py-3 bg-[#00AEEF] text-black rounded-lg font-semibold hover:shadow-[0_0_20px_#00AEEF] transition-all duration-300 flex items-center gap-2">
-                  Get Quote <FaArrowRight />
+                <button className="px-4 md:px-6 py-2 md:py-3 bg-[#00AEEF] text-black rounded-lg font-semibold hover:shadow-[0_0_20px_#00AEEF] transition-all duration-300 flex items-center gap-2 text-sm md:text-base">
+                  Get Quote <FaArrowRight className="text-xs md:text-sm" />
                 </button>
               </Link>
               <Link to="/services">
-                <button className="px-8 py-3 border border-[#00AEEF] text-[#00AEEF] rounded-lg font-semibold hover:bg-[#00AEEF]/10 transition-all duration-300">
+                <button className="px-4 md:px-6 py-2 md:py-3 border border-[#00AEEF] text-[#00AEEF] rounded-lg font-semibold hover:bg-[#00AEEF]/10 transition-all duration-300 text-sm md:text-base">
                   Our Services
                 </button>
               </Link>
