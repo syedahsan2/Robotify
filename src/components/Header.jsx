@@ -53,18 +53,26 @@ export default function Header() {
 
   const dropdownItems = {
     services: [
-      { name: 'Solar Inverter Repairing', icon: <FaSolarPanel className="text-[#00AEEF]" />, path: '/services/solar-inverter-repair' },
-      { name: 'Solar Cleaning Robot', icon: <FaRobot className="text-[#00AEEF]" />, path: '/services/solar-cleaning-robot' },
-      { name: 'Robotics Systems / Robotic Projects', icon: <FaIndustry className="text-[#00AEEF]" />, path: '/services/robotics-projects' },
-      { name: 'AI Models / AI Projects', icon: <FaMicrochip className="text-[#00AEEF]" />, path: '/services/ai-models' }
+      { name: 'Solar Inverter Repairing', icon: <FaSolarPanel className="text-[#00AEEF]" />, path: '/services/solar-inverter-repair', filter: null },
+      { name: 'Solar Cleaning Robot', icon: <FaRobot className="text-[#00AEEF]" />, path: '/services/solar-cleaning-robot', filter: null },
+      { name: 'Robotics Systems / Robotic Projects', icon: <FaIndustry className="text-[#00AEEF]" />, path: '/services/robotics-projects', filter: null },
+      { name: 'AI Models / AI Projects', icon: <FaMicrochip className="text-[#00AEEF]" />, path: '/services/ai-models', filter: null }
     ],
     work: [
-      { name: 'Digital Logic Design', icon: <FaLaptopCode className="text-[#00AEEF]" />, path: '/work/digital-logic' },
-      { name: 'Basic Electronics', icon: <FaBolt className="text-[#00AEEF]" />, path: '/work/basic-electronics' },
-      { name: 'Embedded Systems', icon: <FaPlug className="text-[#00AEEF]" />, path: '/work/embedded-systems' },
-      { name: 'Arduino Projects', icon: <FaGamepad className="text-[#00AEEF]" />, path: '/work/arduino-projects' },
-      { name: 'Raspberry Pi Projects', icon: <FaMicrophone className="text-[#00AEEF]" />, path: '/work/raspberrypi-projects' }
+      { name: 'Digital Logic Design', icon: <FaLaptopCode className="text-[#00AEEF]" />, path: '/work', filter: 'Digital Logic' },
+      { name: 'Basic Electronics', icon: <FaBolt className="text-[#00AEEF]" />, path: '/work', filter: 'Electronics' },
+      { name: 'Embedded Systems', icon: <FaPlug className="text-[#00AEEF]" />, path: '/work', filter: 'Embedded Systems' },
+      { name: 'Arduino Projects', icon: <FaGamepad className="text-[#00AEEF]" />, path: '/work', filter: 'Arduino Projects' },
+      { name: 'Raspberry Pi Projects', icon: <FaMicrophone className="text-[#00AEEF]" />, path: '/work', filter: 'Raspberry Pi Projects' }
     ]
+  };
+
+  // Function to handle work dropdown click with filter
+  const handleWorkClick = (e, filter) => {
+    e.preventDefault();
+    // Store filter in localStorage
+    localStorage.setItem('workFilter', filter);
+    window.location.href = '/work';
   };
 
   return (
@@ -88,7 +96,7 @@ export default function Header() {
                 whileHover={{ scale: 1.02 }}
                 className="flex items-center gap-2"
               >                                
-              <img alt="Robotify Logo" class="w-35 h-20 object-cover rounded-lg" src="/Robotify.png"/>
+                <img alt="Robotify Logo" className="w-35 h-20 object-cover rounded-lg" src="/Robotify.png"/>
               </motion.div>
             </Link>
 
@@ -116,7 +124,6 @@ export default function Header() {
                           : 'text-[#BFC3C7] hover:text-[#00AEEF]'
                       }`}
                     >
-                      {link.icon}
                       {link.name}
                       {link.hasDropdown && (
                         <span className="text-[10px]">▼</span>
@@ -158,7 +165,7 @@ export default function Header() {
                     </AnimatePresence>
                   )}
 
-                  {/* Work Dropdown */}
+                  {/* Work Dropdown - With Filter Links */}
                   {link.dropdownType === 'work' && (
                     <AnimatePresence>
                       {isWorkOpen && (
@@ -174,17 +181,17 @@ export default function Header() {
                               <FaBriefcase className="text-xs" /> WORK / PROJECTS
                             </h4>
                             {dropdownItems.work.map((item) => (
-                              <Link key={item.name} to={item.path}>
-                                <motion.div
-                                  whileHover={{ x: 5 }}
-                                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-[#00AEEF]/10 transition-all duration-300"
-                                >
-                                  <span className="text-[#00AEEF] text-xl">{item.icon}</span>
-                                  <span className="text-[#BFC3C7] text-sm hover:text-[#00AEEF] transition">
-                                    {item.name}
-                                  </span>
-                                </motion.div>
-                              </Link>
+                              <a
+                                key={item.name}
+                                href={item.path}
+                                onClick={(e) => handleWorkClick(e, item.filter)}
+                                className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-[#00AEEF]/10 transition-all duration-300 cursor-pointer"
+                              >
+                                <span className="text-[#00AEEF] text-xl">{item.icon}</span>
+                                <span className="text-[#BFC3C7] text-sm hover:text-[#00AEEF] transition">
+                                  {item.name}
+                                </span>
+                              </a>
                             ))}
                           </div>
                         </motion.div>
@@ -256,7 +263,6 @@ export default function Header() {
                         : 'text-gray-400'
                     }`}
                   >
-                    {link.icon}
                     {link.name}
                   </Link>
                   
@@ -274,16 +280,24 @@ export default function Header() {
                     </div>
                   )}
                   
-                  {/* Mobile Submenu for Work */}
+                  {/* Mobile Submenu for Work - With Filter */}
                   {link.dropdownType === 'work' && (
                     <div className="mt-2 ml-6 space-y-2">
                       {dropdownItems.work.map((item) => (
-                        <Link key={item.name} to={item.path} onClick={() => setIsMobileMenuOpen(false)}>
-                          <div className="flex items-center gap-2 py-1 text-sm text-gray-500 hover:text-[#00AEEF] transition">
-                            <span className="text-[#00AEEF]">{item.icon}</span>
-                            <span>{item.name}</span>
-                          </div>
-                        </Link>
+                        <a
+                          key={item.name}
+                          href={item.path}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            localStorage.setItem('workFilter', item.filter);
+                            window.location.href = '/work';
+                            setIsMobileMenuOpen(false);
+                          }}
+                          className="flex items-center gap-2 py-1 text-sm text-gray-500 hover:text-[#00AEEF] transition cursor-pointer"
+                        >
+                          <span className="text-[#00AEEF]">{item.icon}</span>
+                          <span>{item.name}</span>
+                        </a>
                       ))}
                     </div>
                   )}
