@@ -126,9 +126,8 @@ export default function Contact() {
 
   const socialLinks = [
     { name: "LinkedIn", icon: <FaLinkedin className="text-xl" />, url: "https://linkedin.com", color: "hover:bg-[#0077B5]" },
-    { name: "Facebook", icon: <FaFacebook className="text-xl" />, url: "https://facebook.com", color: "hover:bg-[#1877F2]" },
+    { name: "Facebook", icon: <FaFacebook className="text-xl" />, url: "https://www.facebook.com/people/Robotify/100082976810182/#", color: "hover:bg-[#1877F2]" },
     { name: "Instagram", icon: <FaInstagram className="text-xl" />, url: "https://instagram.com", color: "hover:bg-gradient-to-tr from-[#833AB4] to-[#E4405F]" },
-    { name: "WhatsApp", icon: <FaWhatsapp className="text-xl" />, url: "https://wa.me/923337085256", color: "hover:bg-[#25D366]" },
     { name: "YouTube", icon: <FaYoutube className="text-xl" />, url: "https://youtube.com", color: "hover:bg-[#FF0000]" },
   ];
 
@@ -270,19 +269,6 @@ export default function Contact() {
                     </div>
                   </div>
                 </a>
-              </motion.div>
-
-              {/* Map Location */}
-              <motion.div variants={fadeInUp} className="bg-gray-900/30 backdrop-blur-sm rounded-2xl p-6 border border-gray-800">
-                <h3 className="text-lg font-semibold mb-4 text-white">Find Us</h3>
-                <div className="bg-gray-800 rounded-xl h-48 flex items-center justify-center relative overflow-hidden">
-                  <div className="text-center z-10">
-                    <FaMapMarkerAlt className="text-5xl text-[#00AEEF] mx-auto mb-2" />
-                    <p className="text-gray-400 text-sm">Karachi, Pakistan</p>
-                    <p className="text-[#00AEEF] text-xs mt-2">View on Google Maps →</p>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#00AEEF]/5 to-transparent" />
-                </div>
               </motion.div>
             </motion.div>
 
