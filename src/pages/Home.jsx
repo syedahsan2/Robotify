@@ -17,7 +17,8 @@ import {
   FaShieldAlt,
   FaSyncAlt,
   FaLock,
-  FaArrowRight
+  FaArrowRight,
+  FaCheckCircle
 } from 'react-icons/fa';
 
 export default function Home() {
@@ -33,6 +34,7 @@ export default function Home() {
       shortDesc: "Industrial & Educational Robotics",
       price: "From PKR 35,000",
       features: ["Custom Robots", "Automation", "Sensors", "Control Systems"],
+      tech: ["Arduino", "Raspberry Pi", "ESP32", "ROS"],
     },
     {
       id: "iot",
@@ -41,6 +43,7 @@ export default function Home() {
       shortDesc: "Smart IoT & EMS Systems",
       price: "From PKR 30,000",
       features: ["Real-time Monitoring", "Cloud Integration", "Mobile Apps", "Analytics"],
+      tech: ["NodeMCU", "ESP8266", "MQTT", "Firebase"],
     },
     {
       id: "solar",
@@ -49,6 +52,7 @@ export default function Home() {
       shortDesc: "Solar Energy Solutions",
       price: "From PKR 50,000",
       features: ["System Design", "Installation", "Monitoring", "Maintenance"],
+      tech: ["Solar Panels", "Inverters", "Batteries", "Monitoring"],
     },
     {
       id: "automation",
@@ -57,6 +61,7 @@ export default function Home() {
       shortDesc: "PLC & SCADA Systems",
       price: "From PKR 40,000",
       features: ["PLC Programming", "SCADA Systems", "HMI Design", "Process Control"],
+      tech: ["Siemens PLC", "Allen Bradley", "WinCC"],
     },
     {
       id: "fyp",
@@ -65,6 +70,7 @@ export default function Home() {
       shortDesc: "Final Year Projects",
       price: "From PKR 25,000",
       features: ["Custom Development", "Documentation", "Presentation Ready", "Source Code"],
+      tech: ["Arduino", "Python", "React", "Node.js"],
     },
     {
       id: "custom",
@@ -73,6 +79,7 @@ export default function Home() {
       shortDesc: "Tailored Engineering Solutions",
       price: "Custom Quote",
       features: ["Requirement Analysis", "Design", "Development", "Support"],
+      tech: ["Any Tech Stack", "Custom Solutions"],
     }
   ];
   
@@ -130,12 +137,11 @@ export default function Home() {
   return (
     <div className="bg-black min-h-screen">
       
-      {/* Hero Section - Fixed for mobile */}
+      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4 pt-28 md:pt-20 overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
           <div className="absolute inset-0 bg-[#0A0A0A]" />
           <div className="absolute inset-0" style={electricGrid} />
-          {/* Removed gradient overlay */}
         </div>
         
         <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#00AEEF]/5 rounded-full blur-3xl animate-pulse" />
@@ -231,7 +237,7 @@ export default function Home() {
         </div>
       </section>
       
-      {/* Services Section */}
+      {/* Services Section - UPDATED with same styling as Services page */}
       <section className="relative py-20 px-6 overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
           <div className="absolute inset-0 bg-black" />
@@ -258,7 +264,7 @@ export default function Home() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
             {services.map((service, idx) => (
               <Link to={`/service/${service.id}`} key={idx}>
@@ -274,13 +280,30 @@ export default function Home() {
                     </h3>
                     <p className="text-gray-400 text-sm mb-3">{service.shortDesc}</p>
                     <p className="text-[#00AEEF] font-semibold text-sm mb-4">{service.price}</p>
+                    
+                    {/* Features Preview - Same as Services page */}
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {service.features.slice(0, 2).map((feature, i) => (
-                        <span key={i} className="text-xs px-2 py-1 bg-gray-800 rounded-full text-gray-300">
-                          {feature}
+                      {service.features.slice(0, 3).map((feature, i) => (
+                        <span key={i} className="text-xs px-2 py-1 bg-gray-800 rounded-full text-gray-300 flex items-center gap-1">
+                          <FaCheckCircle className="text-[8px] text-[#00AEEF]" /> {feature}
+                        </span>
+                      ))}
+                      {service.features.length > 3 && (
+                        <span className="text-xs px-2 py-1 bg-gray-800 rounded-full text-gray-400">
+                          +{service.features.length - 3}
+                        </span>
+                      )}
+                    </div>
+                    
+                    {/* Tech Stack - Same as Services page */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {service.tech.slice(0, 3).map((tech, i) => (
+                        <span key={i} className="text-xs text-gray-500">
+                          #{tech}
                         </span>
                       ))}
                     </div>
+                    
                     <div className="text-[#00AEEF] text-sm font-medium group-hover:gap-2 transition-all flex items-center gap-1">
                       Learn More <FaArrowRight className="text-xs" />
                     </div>

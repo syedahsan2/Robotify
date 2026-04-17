@@ -1,13 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaSolarPanel, FaRobot, FaIndustry, FaMicrochip, FaBolt, FaPlug, FaGamepad, FaMicrophone } from 'react-icons/fa';
+import { 
+  FaBolt, 
+  FaArrowRight,
+  FaRobot,
+  FaMicrochip,
+  FaSolarPanel,
+  FaIndustry,
+  FaGraduationCap,
+  FaTools,
+  FaHome,
+  FaInfoCircle,
+  FaEnvelope,
+  FaBriefcase,
+  FaCogs,
+  FaLaptopCode,
+  FaMicrophone,
+  FaGamepad,
+  FaPlug,
+  FaTimes
+} from 'react-icons/fa';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
-  const [isProjectsOpen, setIsProjectsOpen] = useState(false);
+  const [isWorkOpen, setIsWorkOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -18,35 +37,33 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setIsServicesOpen(false);
-    setIsProjectsOpen(false);
+    setIsWorkOpen(false);
   }, [location]);
 
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Services', path: '/services', hasDropdown: true, dropdownType: 'services' },
-    { name: 'Projects', path: '/projects', hasDropdown: true, dropdownType: 'projects' },
-    { name: 'Work', path: '/work' },
+    { name: 'Work', path: '/work', hasDropdown: true, dropdownType: 'work' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' }
   ];
 
-const dropdownItems = {
+  const dropdownItems = {
     services: [
       { name: 'Solar Inverter Repairing', icon: <FaSolarPanel className="text-[#00AEEF]" />, path: '/services/solar-inverter-repair' },
       { name: 'Solar Cleaning Robot', icon: <FaRobot className="text-[#00AEEF]" />, path: '/services/solar-cleaning-robot' },
       { name: 'Robotics Systems / Robotic Projects', icon: <FaIndustry className="text-[#00AEEF]" />, path: '/services/robotics-projects' },
       { name: 'AI Models / AI Projects', icon: <FaMicrochip className="text-[#00AEEF]" />, path: '/services/ai-models' }
     ],
-    projects: [
-      { name: 'Digital Logic Design', icon: <FaMicrochip className="text-[#00AEEF]" />, path: '/projects/digital-logic-design' },
-      { name: 'Basic Electronics', icon: <FaBolt className="text-[#00AEEF]" />, path: '/projects/basic-electronics' },
-      { name: 'Embedded System', icon: <FaPlug className="text-[#00AEEF]" />, path: '/projects/embedded-system' },
-      { name: 'Arduino Based', icon: <FaGamepad className="text-[#00AEEF]" />, path: '/projects/arduino-based' },
-      { name: 'RaspberryPi Based', icon: <FaMicrophone className="text-[#00AEEF]" />, path: '/projects/raspberrypi-based' }
+    work: [
+      { name: 'Digital Logic Design', icon: <FaLaptopCode className="text-[#00AEEF]" />, path: '/work/digital-logic' },
+      { name: 'Basic Electronics', icon: <FaBolt className="text-[#00AEEF]" />, path: '/work/basic-electronics' },
+      { name: 'Embedded Systems', icon: <FaPlug className="text-[#00AEEF]" />, path: '/work/embedded-systems' },
+      { name: 'Arduino Projects', icon: <FaGamepad className="text-[#00AEEF]" />, path: '/work/arduino-projects' },
+      { name: 'Raspberry Pi Projects', icon: <FaMicrophone className="text-[#00AEEF]" />, path: '/work/raspberrypi-projects' }
     ]
   };
 
@@ -70,14 +87,8 @@ const dropdownItems = {
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 className="flex items-center gap-2"
-              >
-                <div className="w-8 h-8 bg-gradient-to-br from-[#00AEEF] to-blue-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">R</span>
-                </div>
-                <span className="text-xl font-bold tracking-tighter">
-                  <span className="text-white">ROBOTIFY</span>
-                  <span className="text-[#00AEEF]">.pk</span>
-                </span>
+              >                                
+              <img alt="Robotify Logo" class="w-35 h-20 object-cover rounded-lg" src="/Robotify.png"/>
               </motion.div>
             </Link>
 
@@ -89,25 +100,26 @@ const dropdownItems = {
                   className="relative"
                   onMouseEnter={() => {
                     if (link.dropdownType === 'services') setIsServicesOpen(true);
-                    if (link.dropdownType === 'projects') setIsProjectsOpen(true);
+                    if (link.dropdownType === 'work') setIsWorkOpen(true);
                   }}
                   onMouseLeave={() => {
                     setIsServicesOpen(false);
-                    setIsProjectsOpen(false);
+                    setIsWorkOpen(false);
                   }}
                 >
                   <Link to={link.path}>
                     <motion.span
                       whileHover={{ y: -1 }}
-                      className={`text-sm tracking-wide transition-all duration-300 cursor-pointer ${
+                      className={`text-sm tracking-wide transition-all duration-300 cursor-pointer flex items-center gap-1 ${
                         location.pathname === link.path
                           ? 'text-[#00AEEF] border-b-2 border-[#00AEEF] pb-1'
                           : 'text-[#BFC3C7] hover:text-[#00AEEF]'
                       }`}
                     >
+                      {link.icon}
                       {link.name}
                       {link.hasDropdown && (
-                        <span className="ml-1 text-xs">▼</span>
+                        <span className="text-[10px]">▼</span>
                       )}
                     </motion.span>
                   </Link>
@@ -121,11 +133,11 @@ const dropdownItems = {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 mt-2 w-72 bg-black/90 backdrop-blur-xl border border-[#2A2A2A] rounded-xl overflow-hidden z-50"
+                          className="absolute top-full left-0 mt-2 w-80 bg-black/90 backdrop-blur-xl border border-[#2A2A2A] rounded-xl overflow-hidden z-50"
                         >
                           <div className="p-2">
-                            <h4 className="text-[#00AEEF] text-xs font-semibold tracking-wider px-3 py-2 border-b border-[#2A2A2A] mb-1">
-                              SERVICES
+                            <h4 className="text-[#00AEEF] text-xs font-semibold tracking-wider px-3 py-2 border-b border-[#2A2A2A] mb-1 flex items-center gap-2">
+                              <FaCogs className="text-xs" /> SERVICES
                             </h4>
                             {dropdownItems.services.map((item) => (
                               <Link key={item.name} to={item.path}>
@@ -146,22 +158,22 @@ const dropdownItems = {
                     </AnimatePresence>
                   )}
 
-                  {/* Projects Dropdown */}
-                  {link.dropdownType === 'projects' && (
+                  {/* Work Dropdown */}
+                  {link.dropdownType === 'work' && (
                     <AnimatePresence>
-                      {isProjectsOpen && (
+                      {isWorkOpen && (
                         <motion.div
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 mt-2 w-72 bg-black/90 backdrop-blur-xl border border-[#2A2A2A] rounded-xl overflow-hidden z-50"
+                          className="absolute top-full left-0 mt-2 w-80 bg-black/90 backdrop-blur-xl border border-[#2A2A2A] rounded-xl overflow-hidden z-50"
                         >
                           <div className="p-2">
-                            <h4 className="text-[#00AEEF] text-xs font-semibold tracking-wider px-3 py-2 border-b border-[#2A2A2A] mb-1">
-                              PROJECTS
+                            <h4 className="text-[#00AEEF] text-xs font-semibold tracking-wider px-3 py-2 border-b border-[#2A2A2A] mb-1 flex items-center gap-2">
+                              <FaBriefcase className="text-xs" /> WORK / PROJECTS
                             </h4>
-                            {dropdownItems.projects.map((item) => (
+                            {dropdownItems.work.map((item) => (
                               <Link key={item.name} to={item.path}>
                                 <motion.div
                                   whileHover={{ x: 5 }}
@@ -188,9 +200,9 @@ const dropdownItems = {
               <motion.button
                 whileHover={{ scale: 1.05, boxShadow: "0 0 20px #00AEEF" }}
                 whileTap={{ scale: 0.98 }}
-                className="hidden md:block px-6 py-2 bg-[#00AEEF] text-black rounded-lg text-sm font-semibold tracking-wide hover:bg-[#00AEEF]/90 transition-all duration-300"
+                className="hidden md:flex items-center gap-2 px-5 py-2 bg-[#00AEEF] text-black rounded-lg text-sm font-semibold tracking-wide hover:bg-[#00AEEF]/90 transition-all duration-300"
               >
-                Get Quote →
+                Get Quote <FaArrowRight />
               </motion.button>
             </Link>
 
@@ -238,22 +250,23 @@ const dropdownItems = {
                   <Link
                     to={link.path}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`text-lg font-light tracking-tighter transition-colors ${
+                    className={`text-lg font-light tracking-tighter transition-colors flex items-center gap-2 ${
                       location.pathname === link.path
                         ? 'text-[#00AEEF]'
                         : 'text-gray-400'
                     }`}
                   >
+                    {link.icon}
                     {link.name}
                   </Link>
                   
                   {/* Mobile Submenu for Services */}
                   {link.dropdownType === 'services' && (
-                    <div className="mt-2 ml-4 space-y-2">
+                    <div className="mt-2 ml-6 space-y-2">
                       {dropdownItems.services.map((item) => (
                         <Link key={item.name} to={item.path} onClick={() => setIsMobileMenuOpen(false)}>
                           <div className="flex items-center gap-2 py-1 text-sm text-gray-500 hover:text-[#00AEEF] transition">
-                            <span>{item.icon}</span>
+                            <span className="text-[#00AEEF]">{item.icon}</span>
                             <span>{item.name}</span>
                           </div>
                         </Link>
@@ -261,13 +274,13 @@ const dropdownItems = {
                     </div>
                   )}
                   
-                  {/* Mobile Submenu for Projects */}
-                  {link.dropdownType === 'projects' && (
-                    <div className="mt-2 ml-4 space-y-2">
-                      {dropdownItems.projects.map((item) => (
+                  {/* Mobile Submenu for Work */}
+                  {link.dropdownType === 'work' && (
+                    <div className="mt-2 ml-6 space-y-2">
+                      {dropdownItems.work.map((item) => (
                         <Link key={item.name} to={item.path} onClick={() => setIsMobileMenuOpen(false)}>
                           <div className="flex items-center gap-2 py-1 text-sm text-gray-500 hover:text-[#00AEEF] transition">
-                            <span>{item.icon}</span>
+                            <span className="text-[#00AEEF]">{item.icon}</span>
                             <span>{item.name}</span>
                           </div>
                         </Link>
@@ -283,8 +296,8 @@ const dropdownItems = {
                 className="mt-4"
               >
                 <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                  <button className="w-full py-3 bg-[#00AEEF] text-black rounded-lg font-semibold">
-                    Get Quote →
+                  <button className="w-full py-3 bg-[#00AEEF] text-black rounded-lg font-semibold flex items-center justify-center gap-2">
+                    Get Quote <FaArrowRight />
                   </button>
                 </Link>
               </motion.div>
